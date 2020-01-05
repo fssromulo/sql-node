@@ -1,0 +1,52 @@
+const path =  require('path');
+
+module.exports = {
+	config: path.resolve(__dirname, 'src', 'config', 'database.js'),
+	'migrations-path': path.resolve(__dirname, 'src', 'database', 'migrations')
+}
+
+/*
+	- Criar a pasta config e dentro da pasta colocar um arquivo com os dados de acesso ao banco de dados.
+	> User, password, host, db_name etc...
+
+	- Criar a pasta database e dentro dessa patar colocar um arquivo que utilizará os dados da pasta "config"
+	para estabelecer a conexão com o banco de dados;
+	> Importar o SEquelize
+	> Importar o arquivo criado dentro da pasta "config"
+	> Criar uma nova conexão com new Sequelize(<<Dados importados da pasta config>>)
+
+	Com as configurações feitas no Sequelize, como ele é um ORM é possível
+	criar a database, tabelas etc com comandos do próprio sequelize!
+
+	Migrations:
+
+	Referenciar a pasta que as migrations ficaram salvas. Essa referência é feita na pasta config/database.js
+
+	Após isso podemos rodar o comando do Sequelize:
+
+	==== Criando um arquivo de migration ====
+	- yarn sequelize migration:create --name=create-user
+
+
+	==== Executando a(s) migration(s) ====
+	- yarn sequelize db:migrate
+
+	Obs.: O Sequelize cria uma tabela no banco chamada "sequelizemeta" e ela guarda quais migrations
+	já foram rodadas no banco de dados.
+
+
+	Dentro das Migrations sempre teremos os métodos "Up" e "Down".
+
+	==== Método UP ====
+	Esse método lança novas alterações para o banco de dados. Ou seja, se queremos adicionar uma nova coluna,
+	nova tabela, alterar uma campo e/ou tabela colocaremos o comando nesse método.
+
+	==== Método DOWN ====
+	Esse método D.E.S.F.A.Z as ações da migration dentro do banco de dados. Se um campo foi criado com o tipo errado(Por exemplo)
+	devemos rodar a migration referenciando o método DOWN para reparar o errobundleRenderer.renderToStream
+
+	Para isso executar:
+	yarn sequelize db:migrate:undo
+
+
+	*/
